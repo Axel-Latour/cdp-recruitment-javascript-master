@@ -1,13 +1,13 @@
-const { main } = require('../main/main');
-const { FILTER_OPTION, COUNT_OPTION, WRONG_OPTION_ERROR_MESSAGE } = require('../main/constants');
+const { executeCommandFromArgs } = require('../../services/commandService');
+const { FILTER_OPTION, COUNT_OPTION, WRONG_OPTION_ERROR_MESSAGE } = require('../../services/constants');
 
-jest.mock('../services/filterService');
-jest.mock('../services/countService');
+jest.mock('../../services/filterService');
+jest.mock('../../services/countService');
 
-const { findCountriesWithAnimalsMatchingPattern } = require('../services/filterService');
-const { addCountInCountryAndPeopleName } = require('../services/countService');
+const { findCountriesWithAnimalsMatchingPattern } = require('../../services/filterService');
+const { addCountInCountryAndPeopleName } = require('../../services/countService');
 
-describe('main', () => {
+describe('executeCommandFromArgs', () => {
   const mockedResult = [{
     country: 'test country',
   }];
@@ -18,7 +18,7 @@ describe('main', () => {
 
       findCountriesWithAnimalsMatchingPattern.mockImplementation(findCountriesWithAnimalsMatchingPatternMock);
 
-      const result = main([`${FILTER_OPTION}test`]);
+      const result = executeCommandFromArgs([`${FILTER_OPTION}test`]);
 
       expect(findCountriesWithAnimalsMatchingPatternMock).toHaveBeenCalledWith('test');
       expect(result).toStrictEqual(mockedResult);
@@ -29,13 +29,13 @@ describe('main', () => {
 
     addCountInCountryAndPeopleName.mockImplementation(addCountInCountryAndPeopleNameMock);
 
-    const result = main([COUNT_OPTION]);
+    const result = executeCommandFromArgs([COUNT_OPTION]);
 
     expect(addCountInCountryAndPeopleNameMock).toHaveBeenCalled();
     expect(result).toStrictEqual(mockedResult);
   });
 
   it('should throw an exception if given option is incorrect', () => {
-    expect(() => main(['any other option'])).toThrowError(new Error(WRONG_OPTION_ERROR_MESSAGE));
+    expect(() => executeCommandFromArgs(['any other option'])).toThrowError(new Error(WRONG_OPTION_ERROR_MESSAGE));
   });
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-const { main } = require('main/main');
+const { main } = require('./main/main');
 
 const commandArgs = process.argv.slice(2);
 const result = main(commandArgs);

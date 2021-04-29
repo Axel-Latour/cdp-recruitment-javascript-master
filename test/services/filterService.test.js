@@ -28,7 +28,7 @@ describe('findCountriesWithAnimalsMatchingPattern', () => {
       }],
     }]);
 
-    const result = findCountriesWithAnimalsMatchingPattern("test");
+    const result = findCountriesWithAnimalsMatchingPattern('test');
 
     expect(result).toEqual([]);
   });
@@ -66,7 +66,7 @@ describe('findCountriesWithAnimalsMatchingPattern', () => {
       }],
     }]);
 
-    const result = findCountriesWithAnimalsMatchingPattern("test");
+    const result = findCountriesWithAnimalsMatchingPattern('test');
 
     const expectedResult = [{
       name: 'Country with two animals matching in the same people',

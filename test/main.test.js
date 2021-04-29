@@ -10,7 +10,8 @@ const { addCountInCountryAndPeopleName } = require('../services/countService');
 describe('main', () => {
   const mockedResult = [{
     country: 'test country',
-  }]
+  }];
+
   it('should call findCountriesWithAnimalsMatchingPattern with a pattern when given option starts with --filter=',
     () => {
       const findCountriesWithAnimalsMatchingPatternMock = jest.fn(() => mockedResult);

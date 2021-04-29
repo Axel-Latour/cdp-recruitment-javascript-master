@@ -1,5 +1,6 @@
 'use strict';
 
+const { EMPTY_PATTERN_ERROR_MESSAGE } = require('./constants');
 const { findCountries } = require('./countryService');
 
 /**
@@ -10,7 +11,7 @@ const { findCountries } = require('./countryService');
  */
 const findCountriesWithAnimalsMatchingPattern = (pattern) => {
   if (!pattern) {
-    throw Error("The pattern to filter the countries must be provided in the command line arguments.");
+    throw Error(EMPTY_PATTERN_ERROR_MESSAGE);
   }
   const countries = findCountries();
   return countries.reduce((updatedCountries, country) => {
@@ -34,11 +35,17 @@ const findCountriesWithAnimalsMatchingPattern = (pattern) => {
  * @returns a new array of filtered People
  */
 const findPeopleWithAnimalsMatchingPattern = (pattern, people) => {
-  return (people || []).map(p => ({
-    ...p,
-    animals: (p.animals || []).filter(animal => new RegExp(pattern).test(animal.name)),
-  }))
-  .filter(p => p.animals.length > 0);
+  return (people || []).reduce((updatedPeople, p) => {
+    const animals = (p.animals || []).filter(animal => new RegExp(pattern).test(animal.name));
+
+    if(animals.length > 0) {
+      updatedPeople.push({
+        ...p,
+        animals,
+      });
+    }
+    return updatedPeople;
+  }, []);
 };
 
 module.exports = {

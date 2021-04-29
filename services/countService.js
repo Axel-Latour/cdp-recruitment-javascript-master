@@ -11,7 +11,7 @@ const addCountInCountryAndPeopleName = () => {
   const countries = findCountries();
   return countries.map(country => ({
     ...country,
-    name: `${country.name} [${(country.people || []).length}]}`,
+    name: generateNameWithArrayLength(country.name, country.people),
     people: addCountInPeopleName(country.people),
   }));
 };
@@ -23,12 +23,21 @@ const addCountInCountryAndPeopleName = () => {
  * @returns an array of People with name updated
  */
 const addCountInPeopleName = (people) => {
-  return people.map((p) => ({
+  return (people || []).map((p) => ({
     ...p,
-    name: `${p.name} [${(p.animals || []).length}]`,
+    name: generateNameWithArrayLength(p.name, p.animals),
   }));
 };
 
+/**
+ * Add the number of elements of the given array, into square brackets, at the end of
+ * the given name
+ * @param name name to update
+ * @param array array of elements to count
+ * @returns {string} updated name suffixed with number of array elements between square brackets
+ */
+const generateNameWithArrayLength = (name, array) => `${name} [${(array || []).length}]`;
+
 module.exports = {
   addCountInCountryAndPeopleName,
-}
+};

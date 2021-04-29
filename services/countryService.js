@@ -11,4 +11,4 @@ const findCountries = () => {
 
 module.exports = {
   findCountries,
-}
+};

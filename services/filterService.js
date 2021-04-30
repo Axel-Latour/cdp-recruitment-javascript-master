@@ -6,8 +6,8 @@ const { findCountries } = require('./countryService');
 /**
  * Given a pattern, it constructs a list of Country with at least one People
  * having at least one Animal name matching with the pattern
- * @param pattern : pattern to filter animals name
- * @returns new array of filtered Country
+ * @param {string} pattern - Pattern to filter animals name
+ * @returns {Array} New array of filtered Country
  */
 const findCountriesWithAnimalsMatchingPattern = (pattern) => {
   if (!pattern) {
@@ -30,12 +30,12 @@ const findCountriesWithAnimalsMatchingPattern = (pattern) => {
 /**
  * Given a pattern and an array of People, it returns only the People
  * having at least one animal matching with the given pattern.
- * @param pattern : pattern to filter animals name
- * @param people : array of People objects to filter
- * @returns a new array of filtered People
+ * @param {string} pattern - Pattern to filter animals name
+ * @param {Array} people - Array of People objects to filter
+ * @returns {Array} New array of filtered People
  */
-const findPeopleWithAnimalsMatchingPattern = (pattern, people) => {
-  return (people || []).reduce((updatedPeople, p) => {
+const findPeopleWithAnimalsMatchingPattern = (pattern, people = []) => {
+  return people.reduce((updatedPeople, p) => {
     const animals = (p.animals || []).filter(animal => new RegExp(pattern).test(animal.name));
 
     if(animals.length > 0) {
